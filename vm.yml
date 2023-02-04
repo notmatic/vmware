@@ -1,0 +1,47 @@
+---
+- name: deploy {{ vm_name }} from template demo
+  hosts: localhost
+  become: false
+  gather_facts: false
+  collections:
+    - community.vmware
+  tasks:
+    - name: create folder
+      vcenter_folder:
+        hostname: "{{ vcenter_host }}"
+        username: "{{ username_secret }}"
+        password: "{{ password_secret }}"
+        validate_certs: "false"
+        datacenter_name: "{{ datacenter_name }}"
+        folder_name: "{{ folder_name }}"
+        folder_type: vm
+        state: present
+    - name: create VM {{ vm_name }}
+      vmware_guest:
+        hostname: "{{ vcenter_host }}"
+        username: "{{ username_secret }}"
+        password: "{{ password_secret }}"
+        validate_certs: "false"
+        datacenter: "{{ datacenter_name }}"
+        cluster: "{{ cluster_name }}"
+        name: "{{ vm_name }}"
+        folder: "{{ folder_name }}"
+        template: "{{ template_name }}"
+        state: poweredon
+        networks:
+        - name: "{{ network_label }}"
+          connected: True
+          ip: "{{ ip_address  }}"
+          netmask: "{{ netmask }}"
+          gateway: "{{ gateway }}"
+          type: static
+        wait_for_ip_address: True
+        wait_for_customization: True
+        customization:
+          autologon: True
+          autologoncount: 1
+          dns_servers:
+          - "{{ dns_1 }}"
+          - "{{ dns_2 }}"              
+          hostname: "{{ vm_name }}"
+          password: "{{ guest_secret }}"
