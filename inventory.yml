@@ -1,8 +1,8 @@
 ---
 - name: Gather all registered virtual machines
   hosts: all
-    hostname: '{{ vcenter_host }}'
-    username: '{{ username_secret }}'
-    password: '{{ password_secret }}'
+  hostname: '{{ vcenter_host }}'
+  username: '{{ username_secret }}'
+  password: '{{ password_secret }}'
   delegate_to: localhost
   register: vminfo
