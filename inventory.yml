@@ -1,7 +1,9 @@
 ---
 - name: Gather all registered virtual machines
   hosts: all
-  community.vmware.vmware_vm_info:
+  collections:
+  - community.vmware.vmware_vm_info
+  vmware_vm_info:
     hostname: '{{ vcenter_host }}'
     username: '{{ username_secret }}'
     password: '{{ password_secret }}'
