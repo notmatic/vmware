@@ -1,7 +1,8 @@
 - name: Gather all registered virtual machines
+  hosts: all
   community.vmware.vmware_vm_info:
-    hostname: '{{ vcenter_hostname }}'
-    username: '{{ vcenter_username }}'
-    password: '{{ vcenter_password }}'
+    hostname: '{{ vcenter_host }}'
+    username: '{{ username_secret }}'
+    password: '{{ password_secret }}'
   delegate_to: localhost
   register: vminfo
