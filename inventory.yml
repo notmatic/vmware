@@ -1,3 +1,4 @@
+---
 - name: Gather all registered virtual machines
   hosts: all
   community.vmware.vmware_vm_info:
