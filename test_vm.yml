@@ -1,6 +1,7 @@
 ---
 - name: Create a virtual machine on given ESXi hostname
-  community.vmware.vmware_guest:
+  collections:
+  - community.vmware.vmware_guest
     hostname: "{{ vcenter_hostname }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
