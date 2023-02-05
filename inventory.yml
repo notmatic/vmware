@@ -1,8 +1,14 @@
 ---
 - name: Gather all registered virtual machines
   hosts: all
-  hostname: '{{ vcenter_host }}'
-  username: '{{ username_secret }}'
-  password: '{{ password_secret }}'
-  delegate_to: localhost
-  register: vminfo
+  become: false
+  gather_facts: false
+  collections:
+    - community.vmware
+  tasks:
+    - name: get inventory
+      hostname: '{{ vcenter_host }}'
+      username: '{{ username_secret }}'
+      password: '{{ password_secret }}'
+      delegate_to: localhost
+      register: vminfols
